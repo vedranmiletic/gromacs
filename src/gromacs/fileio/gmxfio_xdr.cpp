@@ -385,7 +385,7 @@ static gmx_bool do_xdr(t_fileio*       fio,
             {
                 if (!fio->bRead)
                 {
-                    slen = strlen(static_cast<char*>(item)) + 1;
+                    slen = std::strlen(static_cast<char*>(item)) + 1;
                 }
                 else
                 {

@@ -57,9 +57,9 @@ static void atom_not_found(int         fatal_errno,
                            bool        bAllowMissing)
 {
     char message_buffer[BUFSIZE];
-    if (strcmp(bondtype, "check") != 0)
+    if (std::strcmp(bondtype, "check") != 0)
     {
-        if (0 != strcmp(bondtype, "atom"))
+        if (0 != std::strcmp(bondtype, "atom"))
         {
             snprintf(message_buffer,
                      1024,
@@ -110,8 +110,8 @@ int search_atom(const char*              type,
     char** const*                      anm    = atoms->atomname;
     gmx::ArrayRef<const int>::iterator cyclicBondsIterator;
 
-    bPrevious = (strchr(type, '-') != nullptr);
-    bNext     = (strchr(type, '+') != nullptr);
+    bPrevious = (std::strchr(type, '-') != nullptr);
+    bNext     = (std::strchr(type, '+') != nullptr);
 
     if (!bPrevious)
     {

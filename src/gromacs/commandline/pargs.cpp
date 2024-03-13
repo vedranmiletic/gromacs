@@ -86,7 +86,7 @@ int opt2parg_int(const char* option, int nparg, t_pargs pa[])
 
     for (i = 0; (i < nparg); i++)
     {
-        if (strcmp(pa[i].option, option) == 0)
+        if (std::strcmp(pa[i].option, option) == 0)
         {
             return *pa[i].u.i;
         }
@@ -101,7 +101,7 @@ gmx_bool opt2parg_bool(const char* option, int nparg, t_pargs pa[])
 
     for (i = 0; (i < nparg); i++)
     {
-        if (strcmp(pa[i].option, option) == 0)
+        if (std::strcmp(pa[i].option, option) == 0)
         {
             return *pa[i].u.b;
         }
@@ -118,7 +118,7 @@ real opt2parg_real(const char* option, int nparg, t_pargs pa[])
 
     for (i = 0; (i < nparg); i++)
     {
-        if (strcmp(pa[i].option, option) == 0)
+        if (std::strcmp(pa[i].option, option) == 0)
         {
             return *pa[i].u.r;
         }
@@ -133,7 +133,7 @@ const char* opt2parg_str(const char* option, int nparg, t_pargs pa[])
 
     for (i = 0; (i < nparg); i++)
     {
-        if (strcmp(pa[i].option, option) == 0)
+        if (std::strcmp(pa[i].option, option) == 0)
         {
             return *(pa[i].u.c);
         }
@@ -148,7 +148,7 @@ gmx_bool opt2parg_bSet(const char* option, int nparg, const t_pargs* pa)
 
     for (i = 0; (i < nparg); i++)
     {
-        if (strcmp(pa[i].option, option) == 0)
+        if (std::strcmp(pa[i].option, option) == 0)
         {
             return pa[i].bSet;
         }
@@ -165,7 +165,7 @@ const char* opt2parg_enum(const char* option, int nparg, t_pargs pa[])
 
     for (i = 0; (i < nparg); i++)
     {
-        if (strcmp(pa[i].option, option) == 0)
+        if (std::strcmp(pa[i].option, option) == 0)
         {
             return pa[i].u.c[0];
         }

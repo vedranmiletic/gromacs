@@ -123,7 +123,7 @@ int imdsock_winsockinit()
 #if GMX_NATIVE_WINDOWS
 #    define ERR_ARGS __FILE__, __LINE__, NULL
 #else
-#    define ERR_ARGS __FILE__, __LINE__, strerror(errno)
+#    define ERR_ARGS __FILE__, __LINE__, std::strerror(errno)
 #endif
 
 

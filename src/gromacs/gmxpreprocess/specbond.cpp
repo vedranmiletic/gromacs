@@ -116,9 +116,9 @@ std::vector<SpecialBond> generateSpecialBonds()
 static bool is_special(gmx::ArrayRef<const SpecialBond> sb, const char* res, const char* atom)
 {
     return std::any_of(sb.begin(), sb.end(), [res, atom](const auto& bond) {
-        return (((strncmp(bond.firstResidue.c_str(), res, 3) == 0)
+        return (((std::strncmp(bond.firstResidue.c_str(), res, 3) == 0)
                  && (gmx::equalCaseInsensitive(bond.firstAtomName, atom)))
-                || ((strncmp(bond.secondResidue.c_str(), res, 3) == 0)
+                || ((std::strncmp(bond.secondResidue.c_str(), res, 3) == 0)
                     && (gmx::equalCaseInsensitive(bond.secondAtomName, atom))));
     });
 }
@@ -134,9 +134,9 @@ static bool is_bond(gmx::ArrayRef<const SpecialBond> sb, t_atoms* pdba, int a1, 
     for (const auto& bond : sb)
     {
         *index_sb = i;
-        if (((strncmp(bond.firstResidue.c_str(), res1, 3) == 0)
+        if (((std::strncmp(bond.firstResidue.c_str(), res1, 3) == 0)
              && (gmx::equalCaseInsensitive(bond.firstAtomName, at1))
-             && (strncmp(bond.secondResidue.c_str(), res2, 3) == 0)
+             && (std::strncmp(bond.secondResidue.c_str(), res2, 3) == 0)
              && (gmx::equalCaseInsensitive(bond.secondAtomName, at2))))
         {
             *bSwap = FALSE;
@@ -145,9 +145,9 @@ static bool is_bond(gmx::ArrayRef<const SpecialBond> sb, t_atoms* pdba, int a1, 
                 return TRUE;
             }
         }
-        if (((strncmp(bond.firstResidue.c_str(), res2, 3) == 0)
+        if (((std::strncmp(bond.firstResidue.c_str(), res2, 3) == 0)
              && (gmx::equalCaseInsensitive(bond.firstAtomName, at2))
-             && (strncmp(bond.secondResidue.c_str(), res1, 3) == 0)
+             && (std::strncmp(bond.secondResidue.c_str(), res1, 3) == 0)
              && (gmx::equalCaseInsensitive(bond.secondAtomName, at1))))
         {
             *bSwap = TRUE;

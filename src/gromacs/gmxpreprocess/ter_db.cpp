@@ -365,7 +365,7 @@ static void read_ter_db_file(const std::filesystem::path&        fn,
                     }
                     n += ni;
                 }
-                strcpy(buf, "");
+                std::strcpy(buf, "");
                 sscanf(line + n, "%s", buf);
                 newBond->s = buf;
             }
@@ -449,7 +449,7 @@ std::vector<MoleculePatchDatabase*> filter_ter(gmx::ArrayRef<MoleculePatchDataba
             else
             {
                 /* advance to next |-separated field */
-                s = strchr(s, '|');
+                s = std::strchr(s, '|');
                 if (s != nullptr)
                 {
                     s++;
@@ -475,7 +475,7 @@ std::vector<MoleculePatchDatabase*> filter_ter(gmx::ArrayRef<MoleculePatchDataba
         {
             /* Time to see if there's a generic terminus that matches.
                Is there a hyphen? */
-            const char* c = strchr(s, '-');
+            const char* c = std::strchr(s, '-');
 
             /* A conjunction hyphen normally indicates a residue-specific
                terminus, which is named like "GLY-COOH". A generic terminus
@@ -493,7 +493,7 @@ std::vector<MoleculePatchDatabase*> filter_ter(gmx::ArrayRef<MoleculePatchDataba
                  * of this terminus.
                  */
                 auto found = std::find_if(list.begin(), list.end(), [&s](const MoleculePatchDatabase* b) {
-                    return strstr(b->name.c_str(), s) != nullptr;
+                    return std::strstr(b->name.c_str(), s) != nullptr;
                 });
                 if (found == list.end())
                 {

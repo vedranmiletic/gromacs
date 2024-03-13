@@ -124,9 +124,9 @@ static int read_g96_pos(char line[], t_symtab* symtab, FILE* fp, const std::file
                         else
                         {
                             resnr = 1;
-                            strncpy(resnm, "???", sizeof(resnm) - 1);
+                            std::strncpy(resnm, "???", sizeof(resnm) - 1);
                         }
-                        strncpy(anm, "???", sizeof(anm) - 1);
+                        std::strncpy(anm, "???", sizeof(anm) - 1);
                     }
                     atoms->atomname[natoms] = put_symtab(symtab, anm);
                     if (resnr != oldres)
@@ -186,7 +186,7 @@ static int read_g96_vel(char line[], FILE* fp, const std::filesystem::path& infi
 
     if (fr->v && fr->bV)
     {
-        if (strcmp(line, "VELOCITYRED") == 0)
+        if (std::strcmp(line, "VELOCITYRED") == 0)
         {
             shift = 0;
         }
@@ -198,7 +198,7 @@ static int read_g96_vel(char line[], FILE* fp, const std::filesystem::path& infi
         bEnd   = FALSE;
         while (!bEnd && fgets2(line, STRLEN, fp))
         {
-            bEnd = (strncmp(line, "END", 3) == 0);
+            bEnd = (std::strncmp(line, "END", 3) == 0);
             if (!bEnd && (line[0] != '#'))
             {
                 if (sscanf(line + shift, "%15lf%15lf%15lf", &db1, &db2, &db3) != 3)
@@ -279,7 +279,7 @@ int read_g96_conf(FILE* fp, const std::filesystem::path& infile, char** name, t_
     {
         bTime  = (std::strcmp(line, "TIMESTEP") == 0);
         bAtoms = (std::strcmp(line, "POSITION") == 0);
-        bPos   = (bAtoms || (strcmp(line, "POSITIONRED") == 0));
+        bPos   = (bAtoms || (std::strcmp(line, "POSITIONRED") == 0));
         bVel   = (std::strncmp(line, "VELOCITY", 8) == 0);
         bBox   = (std::strcmp(line, "BOX") == 0);
         if (bTime)
@@ -325,7 +325,7 @@ int read_g96_conf(FILE* fp, const std::filesystem::path& infile, char** name, t_
             bEnd = FALSE;
             while (!bEnd && fgets2(line, STRLEN, fp))
             {
-                bEnd = (strncmp(line, "END", 3) == 0);
+                bEnd = (std::strncmp(line, "END", 3) == 0);
                 if (!bEnd && (line[0] != '#'))
                 {
                     nbp = sscanf(line,

@@ -148,7 +148,7 @@ static char* xvgrstr(const std::string& gmx, const gmx_output_env_t* oenv, char*
                     default: buf[b] = '\0'; break;
                 }
                 g++;
-                b = strlen(buf);
+                b = std::strlen(buf);
             }
             else if (gmx[g] == '8')
             {
@@ -1023,7 +1023,7 @@ real** read_xvg_time(const std::filesystem::path& fn,
                     a++;
                     line += nchar;
                 }
-                if (line0[strlen(line0) - 1] != '\n')
+                if (line0[std::strlen(line0) - 1] != '\n')
                 {
                     fprintf(stderr,
                             "File %s does not end with a newline, ignoring the last line\n",
