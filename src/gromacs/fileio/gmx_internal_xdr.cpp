@@ -640,13 +640,14 @@ static bool_t xdrstdio_putbytes(XDR* xdrs, char* addr, unsigned int len)
 
 static unsigned int xdrstdio_getpos(XDR* xdrs)
 {
-    return static_cast<int>(ftell(reinterpret_cast<FILE*>(xdrs->x_private)));
+    return static_cast<int>(std::ftell(reinterpret_cast<FILE*>(xdrs->x_private)));
 }
 
 static bool_t xdrstdio_setpos(XDR* xdrs, unsigned int pos)
 {
-    return fseek(reinterpret_cast<FILE*>(xdrs->x_private), static_cast<xdr_int32_t>(pos), 0) < 0 ? FALSE
-                                                                                                 : TRUE;
+    return std::fseek(reinterpret_cast<FILE*>(xdrs->x_private), static_cast<xdr_int32_t>(pos), 0) < 0
+                   ? FALSE
+                   : TRUE;
 }
 
 static xdr_int32_t* xdrstdio_inline(XDR* xdrs, int len)
