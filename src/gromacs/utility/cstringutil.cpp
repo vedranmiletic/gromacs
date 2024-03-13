@@ -130,7 +130,7 @@ void upstring(char* str)
     }
     for (size_t i = 0; i < std::strlen(str); i++)
     {
-        str[i] = toupper(str[i]);
+        str[i] = std::toupper(str[i]);
     }
 }
 
@@ -186,11 +186,11 @@ int gmx_strcasecmp_min(const char* str1, const char* str2)
     {
         do
         {
-            ch1 = toupper(*(str1++));
+            ch1 = std::toupper(*(str1++));
         } while ((ch1 == '-') || (ch1 == '_'));
         do
         {
-            ch2 = toupper(*(str2++));
+            ch2 = std::toupper(*(str2++));
         } while ((ch2 == '-') || (ch2 == '_'));
 
         if (ch1 != ch2)
@@ -211,11 +211,11 @@ int gmx_strncasecmp_min(const char* str1, const char* str2, int n)
     {
         do
         {
-            ch1 = toupper(*(str1++));
+            ch1 = std::toupper(*(str1++));
         } while ((ch1 == '-') || (ch1 == '_'));
         do
         {
-            ch2 = toupper(*(str2++));
+            ch2 = std::toupper(*(str2++));
         } while ((ch2 == '-') || (ch2 == '_'));
 
         if (ch1 != ch2)
@@ -232,8 +232,8 @@ int gmx_strcasecmp(const char* str1, const char* str2)
 
     do
     {
-        ch1 = toupper(*(str1++));
-        ch2 = toupper(*(str2++));
+        ch1 = std::toupper(*(str1++));
+        ch2 = std::toupper(*(str2++));
         if (ch1 != ch2)
         {
             return (ch1 - ch2);
@@ -253,8 +253,8 @@ int gmx_strncasecmp(const char* str1, const char* str2, int n)
 
     do
     {
-        ch1 = toupper(*(str1++));
-        ch2 = toupper(*(str2++));
+        ch1 = std::toupper(*(str1++));
+        ch2 = std::toupper(*(str2++));
         if (ch1 != ch2)
         {
             return (ch1 - ch2);
@@ -311,7 +311,7 @@ unsigned int gmx_string_hash_func(const char* s, unsigned int hash_init)
 {
     int c = 0;
 
-    while ((c = toupper(*s++)) != '\0')
+    while ((c = std::toupper(*s++)) != '\0')
     {
         if (isalnum(c))
         {
