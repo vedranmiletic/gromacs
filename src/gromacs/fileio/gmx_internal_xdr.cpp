@@ -451,7 +451,7 @@ bool_t xdr_string(XDR* xdrs, char** cpp, unsigned int maxsize)
         case XDR_ENCODE: return xdr_opaque(xdrs, sp, size);
 
         case XDR_FREE:
-            free(sp);
+            std::free(sp);
             *cpp = nullptr;
             return TRUE;
     }
