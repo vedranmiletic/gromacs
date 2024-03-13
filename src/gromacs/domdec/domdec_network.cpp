@@ -247,7 +247,7 @@ void dd_scatter(const gmx_domdec_t gmx_unused* dd, int gmx_unused nbytes, const 
         /* 1 rank, either we copy everything, or dest=src: nothing to do */
         if (dest != src)
         {
-            memcpy(dest, src, nbytes);
+            std::memcpy(dest, src, nbytes);
         }
     }
 }
@@ -266,7 +266,7 @@ void dd_gather(const gmx_domdec_t gmx_unused* dd,
     else
 #endif
     {
-        memcpy(dest, src, nbytes);
+        std::memcpy(dest, src, nbytes);
     }
 }
 
@@ -309,7 +309,7 @@ void dd_scatterv(const gmx_domdec_t gmx_unused*      dd,
         /* 1 rank, either we copy everything, or rbuf=sbuf: nothing to do */
         if (rbuf != sbuf)
         {
-            memcpy(rbuf, sbuf, rcount * sizeof(T));
+            std::memcpy(rbuf, sbuf, rcount * sizeof(T));
         }
     }
 }
@@ -364,7 +364,7 @@ void dd_gatherv(const gmx_domdec_t gmx_unused* dd,
     else
 #endif
     {
-        memcpy(rbuf, sbuf, rcounts[0] * sizeof(T));
+        std::memcpy(rbuf, sbuf, rcounts[0] * sizeof(T));
     }
 }
 

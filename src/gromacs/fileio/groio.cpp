@@ -181,7 +181,7 @@ static gmx_bool get_w_conf(FILE*                        in,
         }
 
         /* residue number*/
-        memcpy(name, line, 5);
+        std::memcpy(name, line, 5);
         name[5] = '\0';
         sscanf(name, "%d", &resnr);
         sscanf(line + 5, "%5s", resname);
