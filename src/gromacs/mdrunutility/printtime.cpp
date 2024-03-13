@@ -50,8 +50,8 @@ void print_time(FILE*                     out,
                 const t_inputrec*         ir,
                 const t_commrec*          cr)
 {
-    time_t finish;
-    double dt, elapsed_seconds, time_per_step;
+    std::time_t finish;
+    double      dt, elapsed_seconds, time_per_step;
 
 #if !GMX_THREAD_MPI
     if (!PAR(cr))
@@ -75,7 +75,7 @@ void print_time(FILE*                     out,
         {
             if (dt >= 300)
             {
-                finish       = static_cast<time_t>(seconds_since_epoch + dt);
+                finish       = static_cast<std::time_t>(seconds_since_epoch + dt);
                 auto timebuf = gmx_ctime_r(&finish);
                 timebuf.erase(timebuf.find_first_of('\n'));
                 fputs(", will finish ", out);
@@ -110,7 +110,7 @@ void print_date_and_time(FILE* fplog, int nodeid, const char* title, double the_
         return;
     }
 
-    time_t temp_time = static_cast<time_t>(the_time);
+    std::time_t temp_time = static_cast<std::time_t>(the_time);
 
     auto timebuf = gmx_ctime_r(&temp_time);
 

@@ -208,8 +208,8 @@ double gmx_gettime()
        headers claim sufficient support for POSIX (ie not Mac and
        Windows). */
 #if HAVE_CLOCK_GETTIME && defined(_POSIX_TIMERS) && _POSIX_TIMERS > 0
-    struct timespec t;
-    double          seconds;
+    struct std::timespec t;
+    double               seconds;
 
     clock_gettime(CLOCK_REALTIME, &t);
     seconds = static_cast<double>(t.tv_sec) + 1e-9 * t.tv_nsec;
@@ -228,7 +228,7 @@ double gmx_gettime()
 #else
     double seconds;
 
-    seconds = time(nullptr);
+    seconds = std::time(nullptr);
 
     return seconds;
 #endif
@@ -252,8 +252,8 @@ static double gmx_gettime_per_thread()
        headers claim sufficient support for POSIX (ie not Mac and
        Windows). */
 #if HAVE_CLOCK_GETTIME && defined(_POSIX_THREAD_CPUTIME) && _POSIX_THREAD_CPUTIME > 0
-    struct timespec t;
-    double          seconds;
+    struct std::timespec t;
+    double               seconds;
 
     clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t);
     seconds = static_cast<double>(t.tv_sec) + 1e-9 * t.tv_nsec;
