@@ -142,7 +142,7 @@ void ltrim(char* str)
     }
 
     int c = 0;
-    while (('\0' != str[c]) && isspace(str[c]))
+    while (('\0' != str[c]) && std::isspace(str[c]))
     {
         c++;
     }
@@ -313,7 +313,7 @@ unsigned int gmx_string_hash_func(const char* s, unsigned int hash_init)
 
     while ((c = std::toupper(*s++)) != '\0')
     {
-        if (isalnum(c))
+        if (std::isalnum(c))
         {
             hash_init = ((hash_init << 5) + hash_init) ^ c; /* (hash * 33) xor c */
         }
