@@ -74,7 +74,7 @@ int continuing(char* s)
 char* fgets2(char* line, int n, FILE* stream)
 {
     char* c = nullptr;
-    if (fgets(line, n, stream) == nullptr)
+    if (std::fgets(line, n, stream) == nullptr)
     {
         return nullptr;
     }

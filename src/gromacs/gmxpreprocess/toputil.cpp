@@ -338,7 +338,7 @@ void print_atoms(FILE* out, PreprocessingAtomTypes* atype, t_atoms* at, int* cgn
             }
             else
             {
-                fputs("\n", out);
+                std::fputs("\n", out);
             }
         }
     }

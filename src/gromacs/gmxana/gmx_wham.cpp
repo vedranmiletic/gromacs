@@ -436,7 +436,7 @@ static char* fgets3(FILE* fp, char ptr[], int* len)
     char* p;
     int   slen;
 
-    if (fgets(ptr, *len - 1, fp) == nullptr)
+    if (std::fgets(ptr, *len - 1, fp) == nullptr)
     {
         return nullptr;
     }
@@ -447,7 +447,7 @@ static char* fgets3(FILE* fp, char ptr[], int* len)
         *len += STRLEN;
         p += STRLEN;
         srenew(ptr, *len);
-        if (fgets(p - 1, STRLEN, fp) == nullptr)
+        if (std::fgets(p - 1, STRLEN, fp) == nullptr)
         {
             break;
         }
@@ -1504,7 +1504,7 @@ static void read_wham_in(const char* fn, char*** filenamesRet, int* nfilesRet, t
     fp      = gmx_ffopen(fn, "r");
     nread   = 0;
     sizenow = 0;
-    while (fgets(tmp, sizeof(tmp), fp) != nullptr)
+    while (std::fgets(tmp, sizeof(tmp), fp) != nullptr)
     {
         if (std::strlen(tmp) >= WHAM_MAXFILELEN)
         {

@@ -442,7 +442,7 @@ bool_t xdr_string(XDR* xdrs, char** cpp, unsigned int maxsize)
             }
             if (sp == nullptr)
             {
-                (void)fputs("xdr_string: out of memory\n", stderr);
+                (void)std::fputs("xdr_string: out of memory\n", stderr);
                 return FALSE;
             }
             sp[size] = 0;
