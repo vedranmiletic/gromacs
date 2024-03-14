@@ -534,7 +534,7 @@ bool_t xdr_double(XDR* xdrs, double* dp)
                    "Do you have a non-IEEE system?\n"
                    "If possible, use the XDR libraries provided with your system,\n"
                    "instead of the GROMACS fallback XDR source.\n");
-            exit(0);
+            std::exit(0);
         }
     }
 
