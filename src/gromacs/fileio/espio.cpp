@@ -58,7 +58,7 @@ static int get_espresso_word(FILE* fp, char word[])
 
     do
     {
-        i = fgetc(fp);
+        i = std::fgetc(fp);
         if (i != EOF)
         {
             if (i == ' ' || i == '\n' || i == '\t')
