@@ -1520,7 +1520,7 @@ void check_ir(const char*                    mdparin,
         CHECK(usingFullElectrostatics(ir->coulombtype));
     }
 
-    if (getenv("GMX_DO_GALACTIC_DYNAMICS") == nullptr)
+    if (std::getenv("GMX_DO_GALACTIC_DYNAMICS") == nullptr)
     {
         sprintf(err_buf, "epsilon-r must be >= 0 instead of %g\n", ir->epsilon_r);
         CHECK(ir->epsilon_r < 0);
@@ -4640,7 +4640,7 @@ static void check_combination_rule_differences(const gmx_mtop_t& mtop,
      * force-field floating point parameters.
      */
     tol = 1e-5;
-    ptr = getenv("GMX_LJCOMB_TOL");
+    ptr = std::getenv("GMX_LJCOMB_TOL");
     if (ptr != nullptr)
     {
         double            dbl;

@@ -110,7 +110,7 @@ GpuAwareMpiStatus checkMpiCudaAwareSupport()
     GpuAwareMpiStatus status = GpuAwareMpiStatus::NotSupported;
 #endif
 
-    if (status != GpuAwareMpiStatus::Supported && getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
+    if (status != GpuAwareMpiStatus::Supported && std::getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
     {
         status = GpuAwareMpiStatus::Forced;
     }
@@ -129,7 +129,7 @@ GpuAwareMpiStatus checkMpiHipAwareSupport()
     GpuAwareMpiStatus status = GpuAwareMpiStatus::NotSupported;
 #endif
 
-    if (status != GpuAwareMpiStatus::Supported && getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
+    if (status != GpuAwareMpiStatus::Supported && std::getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
     {
         status = GpuAwareMpiStatus::Forced;
     }
@@ -188,7 +188,7 @@ GpuAwareMpiStatus checkMpiZEAwareSupport()
     }
 #endif
 
-    if (status != GpuAwareMpiStatus::Supported && getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
+    if (status != GpuAwareMpiStatus::Supported && std::getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
     {
         status = GpuAwareMpiStatus::Forced;
     }

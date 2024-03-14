@@ -111,7 +111,7 @@ int LegacyMdrunOptions::updateFromCommandLine(int argc, char** argv, ArrayRef<co
         hw_opt.devicesSelectedByUser = devicesSelectedByUser;
         hw_opt.userGpuTaskAssignment = userGpuTaskAssignment;
 
-        const char* env = getenv("GMX_GPU_ID");
+        const char* env = std::getenv("GMX_GPU_ID");
         if (env != nullptr)
         {
             if (!hw_opt.devicesSelectedByUser.empty())
@@ -121,7 +121,7 @@ int LegacyMdrunOptions::updateFromCommandLine(int argc, char** argv, ArrayRef<co
             hw_opt.devicesSelectedByUser = env;
         }
 
-        env = getenv("GMX_GPUTASKS");
+        env = std::getenv("GMX_GPUTASKS");
         if (env != nullptr)
         {
             if (!hw_opt.userGpuTaskAssignment.empty())

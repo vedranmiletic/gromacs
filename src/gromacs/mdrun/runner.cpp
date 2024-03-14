@@ -213,9 +213,9 @@ static DevelopmentFeatureFlags manageDevelopmentFeatures(const gmx::MDLogger& md
     DevelopmentFeatureFlags devFlags;
 
     devFlags.enableGpuBufferOps = (GMX_GPU_CUDA || GMX_GPU_SYCL) && useGpuForNonbonded
-                                  && (getenv("GMX_USE_GPU_BUFFER_OPS") != nullptr);
+                                  && (std::getenv("GMX_USE_GPU_BUFFER_OPS") != nullptr);
 
-    if (getenv("GMX_CUDA_GRAPH") != nullptr)
+    if (std::getenv("GMX_CUDA_GRAPH") != nullptr)
     {
         if (GMX_HAVE_GPU_GRAPH_SUPPORT)
         {
@@ -259,7 +259,7 @@ static DevelopmentFeatureFlags manageDevelopmentFeatures(const gmx::MDLogger& md
     if (GMX_LIB_MPI && (GMX_GPU_CUDA || GMX_GPU_SYCL))
     {
         // Allow overriding the detection for GPU-aware MPI
-        if (getenv("GMX_FORCE_CUDA_AWARE_MPI") != nullptr)
+        if (std::getenv("GMX_FORCE_CUDA_AWARE_MPI") != nullptr)
         {
             GMX_LOG(mdlog.warning)
                     .asParagraph()
@@ -270,7 +270,7 @@ static DevelopmentFeatureFlags manageDevelopmentFeatures(const gmx::MDLogger& md
 
         devFlags.canUseGpuAwareMpi = (gpuAwareMpiStatus == gmx::GpuAwareMpiStatus::Supported
                                       || gpuAwareMpiStatus == gmx::GpuAwareMpiStatus::Forced);
-        if (getenv("GMX_ENABLE_DIRECT_GPU_COMM") != nullptr)
+        if (std::getenv("GMX_ENABLE_DIRECT_GPU_COMM") != nullptr)
         {
             if (gpuAwareMpiStatus == gmx::GpuAwareMpiStatus::Forced)
             {
@@ -320,7 +320,7 @@ static DevelopmentFeatureFlags manageDevelopmentFeatures(const gmx::MDLogger& md
     }
     else
     {
-        if (getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
+        if (std::getenv("GMX_FORCE_GPU_AWARE_MPI") != nullptr)
         {
             // Cannot force use of GPU-aware MPI in this build configuration
             GMX_LOG(mdlog.info)
@@ -332,7 +332,7 @@ static DevelopmentFeatureFlags manageDevelopmentFeatures(const gmx::MDLogger& md
         }
     }
 
-    if (getenv("GMX_ENABLE_NVSHMEM") != nullptr)
+    if (std::getenv("GMX_ENABLE_NVSHMEM") != nullptr)
     {
         if (GMX_LIB_MPI && GMX_NVSHMEM)
         {
@@ -377,7 +377,7 @@ static DevelopmentFeatureFlags manageDevelopmentFeatures(const gmx::MDLogger& md
              && ((pmeRunMode == PmeRunMode::GPU && (GMX_USE_Heffte || GMX_USE_cuFFTMp))
                  || pmeRunMode == PmeRunMode::Mixed));
 
-    const bool forcePmeGpuDecomposition = getenv("GMX_GPU_PME_DECOMPOSITION") != nullptr;
+    const bool forcePmeGpuDecomposition = std::getenv("GMX_GPU_PME_DECOMPOSITION") != nullptr;
 
     if (pmeGpuDecompositionSupported && pmeGpuDecompositionRequested)
     {
@@ -914,7 +914,8 @@ int Mdrunner::mdrunner()
 
     // Handle task-assignment related user options.
     EmulateGpuNonbonded emulateGpuNonbonded =
-            (getenv("GMX_EMULATE_GPU") != nullptr ? EmulateGpuNonbonded::Yes : EmulateGpuNonbonded::No);
+            (std::getenv("GMX_EMULATE_GPU") != nullptr ? EmulateGpuNonbonded::Yes
+                                                       : EmulateGpuNonbonded::No);
 
     std::vector<int> userGpuTaskAssignment;
     try
@@ -1143,7 +1144,7 @@ int Mdrunner::mdrunner()
                        "A parallel run should not arrive here without DD support");
 
     int useDDWithSingleRank = -1;
-    if (const char* ddSingleRankEnv = getenv("GMX_DD_SINGLE_RANK"))
+    if (const char* ddSingleRankEnv = std::getenv("GMX_DD_SINGLE_RANK"))
     {
         useDDWithSingleRank = std::strtol(ddSingleRankEnv, nullptr, 10);
     }
@@ -1596,7 +1597,7 @@ int Mdrunner::mdrunner()
         }
     }
 
-    const bool disableNonbondedCalculation = (getenv("GMX_NO_NONBONDED") != nullptr);
+    const bool disableNonbondedCalculation = (std::getenv("GMX_NO_NONBONDED") != nullptr);
     if (disableNonbondedCalculation)
     {
         /* turn off non-bonded calculations */

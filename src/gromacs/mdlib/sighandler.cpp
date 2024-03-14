@@ -128,7 +128,7 @@ static void gmx_signal(int signum)
 
 void signal_handler_install()
 {
-    if (getenv("GMX_NO_TERM") == nullptr)
+    if (std::getenv("GMX_NO_TERM") == nullptr)
     {
         if (debug)
         {
@@ -136,7 +136,7 @@ void signal_handler_install()
         }
         gmx_signal(SIGTERM);
     }
-    if (getenv("GMX_NO_INT") == nullptr)
+    if (std::getenv("GMX_NO_INT") == nullptr)
     {
         if (debug)
         {
@@ -145,7 +145,7 @@ void signal_handler_install()
         gmx_signal(SIGINT);
     }
 #if HAVE_SIGUSR1
-    if (getenv("GMX_NO_USR1") == nullptr)
+    if (std::getenv("GMX_NO_USR1") == nullptr)
     {
         if (debug)
         {

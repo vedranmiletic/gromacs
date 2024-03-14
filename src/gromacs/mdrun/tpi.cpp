@@ -180,7 +180,7 @@ void LegacySimulator::do_tpi()
     std::vector<real> massesDefiningCavity;
     if (insertIntoCavity)
     {
-        char* ptr = getenv("GMX_TPIC_MASSES");
+        char* ptr = std::getenv("GMX_TPIC_MASSES");
         if (ptr == nullptr)
         {
             // With a single atom the masses doesn't matter as long as it is !=0
@@ -246,7 +246,7 @@ void LegacySimulator::do_tpi()
     /* An environment variable can be set to dump all configurations
      * to pdb with an insertion energy <= this value.
      */
-    const char* dump_pdb  = getenv("GMX_TPI_DUMP");
+    const char* dump_pdb  = std::getenv("GMX_TPI_DUMP");
     double      dump_ener = 0;
     if (dump_pdb)
     {

@@ -95,5 +95,5 @@ PairSearch::PairSearch(const PbcType             pbcType,
     gridSet_(pbcType, doTestParticleInsertion, numDDCells, ddZones, pairlistType, haveFep, maxNumThreads, pinningPolicy),
     work_(maxNumThreads)
 {
-    cycleCounting_.recordCycles_ = (getenv("GMX_NBNXN_CYCLE") != nullptr);
+    cycleCounting_.recordCycles_ = (std::getenv("GMX_NBNXN_CYCLE") != nullptr);
 }
