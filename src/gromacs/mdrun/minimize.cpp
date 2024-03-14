@@ -1857,7 +1857,7 @@ void LegacySimulator::do_cg()
                         s_min->fnorm / sqrtNumAtoms,
                         s_min->fmax,
                         s_min->a_fmax + 1);
-                fflush(stderr);
+                std::fflush(stderr);
             }
             /* Store the new (lower) energies */
             matrix nullBox = {};
@@ -2689,7 +2689,7 @@ void LegacySimulator::do_lbfgs()
                         ems.fnorm / sqrtNumAtoms,
                         ems.fmax,
                         ems.a_fmax + 1);
-                fflush(stderr);
+                std::fflush(stderr);
             }
             /* Store the new (lower) energies */
             matrix nullBox = {};
@@ -2983,7 +2983,7 @@ void LegacySimulator::do_steep()
                         s_try->fmax,
                         s_try->a_fmax + 1,
                         ((count == 0) || (s_try->epot < s_min->epot)) ? '\n' : '\r');
-                fflush(stderr);
+                std::fflush(stderr);
             }
 
             if ((count == 0) || (s_try->epot < s_min->epot))
@@ -3018,7 +3018,7 @@ void LegacySimulator::do_steep()
                                                    count,
                                                    fr_->fcdata.get(),
                                                    nullptr);
-                fflush(fpLog_);
+                std::fflush(fpLog_);
             }
         }
 
@@ -3481,7 +3481,7 @@ void LegacySimulator::do_nm()
 
             if (mdrunOptions_.verbose && fpLog_)
             {
-                fflush(fpLog_);
+                std::fflush(fpLog_);
             }
         }
         /* write progress */
@@ -3491,7 +3491,7 @@ void LegacySimulator::do_nm()
                     "\rFinished step %d out of %td",
                     std::min<int>(atom + nnodes, atom_index.size()),
                     gmx::ssize(atom_index));
-            fflush(stderr);
+            std::fflush(stderr);
         }
     }
 

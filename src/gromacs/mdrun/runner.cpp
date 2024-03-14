@@ -1707,7 +1707,7 @@ int Mdrunner::mdrunner()
                                  cr->nnodes == 1 ? "process" : "processes"
 #    endif
             );
-    fflush(stderr);
+    std::fflush(stderr);
 #endif
 
     // If mdrun -pin auto honors any affinity setting that already

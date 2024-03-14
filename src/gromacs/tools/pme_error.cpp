@@ -606,7 +606,7 @@ static real estimate_reciprocal(PmeErrorInputs* info,
             fprintf(stderr,
                     "\rCalculating reciprocal error part 1 ... %3.0f%%",
                     100.0 * (nx - startlocal + 1) / (x_per_core));
-            fflush(stderr);
+            std::fflush(stderr);
         }
     }
 
@@ -734,7 +734,7 @@ static real estimate_reciprocal(PmeErrorInputs* info,
         if (MAIN(cr))
         {
             fprintf(stderr, "\rCalculating reciprocal error part 2 ... %3.0f%%", 100.0 * (i + 1) / stoplocal);
-            fflush(stderr);
+            std::fflush(stderr);
         }
     }
 
@@ -952,7 +952,7 @@ static void estimate_PME_error(PmeErrorInputs*   info,
         fprintf(fp_out, "Ewald parameter beta    : %g\n", info->ewald_beta[0]);
         fprintf(fp_out, "Interpolation order     : %d\n", info->pme_order[0]);
         fprintf(fp_out, "Fourier grid (nx,ny,nz) : %d x %d x %d\n", info->nkx[0], info->nky[0], info->nkz[0]);
-        fflush(fp_out);
+        std::fflush(fp_out);
     }
 
     if (PAR(cr))
@@ -977,7 +977,7 @@ static void estimate_PME_error(PmeErrorInputs*   info,
         fprintf(fp_out, "Direct space error est. : %10.3e kJ/(mol*nm)\n", info->e_dir[0]);
         fprintf(fp_out, "Reciprocal sp. err. est.: %10.3e kJ/(mol*nm)\n", info->e_rec[0]);
         fprintf(fp_out, "Self-energy error term was estimated using %d samples\n", nsamples);
-        fflush(fp_out);
+        std::fflush(fp_out);
         fprintf(stderr, "Direct space error est. : %10.3e kJ/(mol*nm)\n", info->e_dir[0]);
         fprintf(stderr, "Reciprocal sp. err. est.: %10.3e kJ/(mol*nm)\n", info->e_rec[0]);
     }
@@ -1053,7 +1053,7 @@ static void estimate_PME_error(PmeErrorInputs*   info,
         if (MAIN(cr))
         {
             /* Write some info to log file */
-            fflush(fp_out);
+            std::fflush(fp_out);
             fprintf(fp_out, "=========  After tuning ========\n");
             fprintf(fp_out, "Direct space error est. : %10.3e kJ/(mol*nm)\n", info->e_dir[0]);
             fprintf(fp_out, "Reciprocal sp. err. est.: %10.3e kJ/(mol*nm)\n", info->e_rec[0]);
@@ -1061,7 +1061,7 @@ static void estimate_PME_error(PmeErrorInputs*   info,
             fprintf(stderr, "Reciprocal sp. err. est.: %10.3e kJ/(mol*nm)\n", info->e_rec[0]);
             fprintf(fp_out, "Ewald_rtol              : %g\n", info->ewald_rtol[0]);
             fprintf(fp_out, "Ewald parameter beta    : %g\n", info->ewald_beta[0]);
-            fflush(fp_out);
+            std::fflush(fp_out);
         }
     }
 }
@@ -1155,7 +1155,7 @@ int gmx_pme_error(int argc, char* argv[])
     {
         read_tpr_file(opt2fn("-s", NFILE, fnm), &info, &state, &mtop, &ir, user_beta, fracself);
         /* Open logfile for reading */
-        fp = fopen(opt2fn("-o", NFILE, fnm), "w");
+        fp = std::fopen(opt2fn("-o", NFILE, fnm), "w");
 
         /* Determine the volume of the simulation box */
         info.volume = det(state.box);
@@ -1212,7 +1212,7 @@ int gmx_pme_error(int argc, char* argv[])
             write_tpx_state(opt2fn("-so", NFILE, fnm), &ir, &state, mtop);
         }
         please_cite(fp, "Wang2010");
-        fclose(fp);
+        std::fclose(fp);
     }
 
     return 0;

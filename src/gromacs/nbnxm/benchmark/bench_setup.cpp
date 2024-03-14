@@ -579,7 +579,7 @@ void bench(const int sizeFactor, const KernelBenchOptions& options)
 
     if (!options.outputFile.empty())
     {
-        fclose(system.csv);
+        std::fclose(system.csv);
     }
 }
 

@@ -63,7 +63,7 @@ StdioTestHelper::~StdioTestHelper()
 {
     if (redirected)
     {
-        fclose(stdin);
+        std::fclose(stdin);
     }
 }
 

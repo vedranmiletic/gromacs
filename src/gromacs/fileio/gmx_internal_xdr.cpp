@@ -613,7 +613,7 @@ static bool_t       xdrstdio_putuint32(XDR* /*xdrs*/, xdr_uint32_t* /*ip*/);
  */
 static void xdrstdio_destroy(XDR* xdrs)
 {
-    fflush(reinterpret_cast<FILE*>(xdrs->x_private));
+    std::fflush(reinterpret_cast<FILE*>(xdrs->x_private));
     /* xx should we close the file ?? */
 }
 
@@ -621,7 +621,7 @@ static void xdrstdio_destroy(XDR* xdrs)
 static bool_t xdrstdio_getbytes(XDR* xdrs, char* addr, unsigned int len)
 {
     if ((len != 0)
-        && (fread(addr, static_cast<int>(len), 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1))
+        && (std::fread(addr, static_cast<int>(len), 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1))
     {
         return FALSE;
     }
@@ -631,7 +631,7 @@ static bool_t xdrstdio_getbytes(XDR* xdrs, char* addr, unsigned int len)
 static bool_t xdrstdio_putbytes(XDR* xdrs, char* addr, unsigned int len)
 {
     if ((len != 0)
-        && (fwrite(addr, static_cast<int>(len), 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1))
+        && (std::fwrite(addr, static_cast<int>(len), 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1))
     {
         return FALSE;
     }
@@ -670,7 +670,7 @@ static bool_t xdrstdio_getint32(XDR* xdrs, xdr_int32_t* ip)
 {
     xdr_int32_t mycopy;
 
-    if (fread(&mycopy, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
+    if (std::fread(&mycopy, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
     {
         return FALSE;
     }
@@ -683,7 +683,7 @@ static bool_t xdrstdio_putint32(XDR* xdrs, xdr_int32_t* ip)
     xdr_int32_t mycopy = xdr_htonl(*ip);
 
     ip = &mycopy;
-    if (fwrite(ip, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
+    if (std::fwrite(ip, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
     {
         return FALSE;
     }
@@ -694,7 +694,7 @@ static bool_t xdrstdio_getuint32(XDR* xdrs, xdr_uint32_t* ip)
 {
     xdr_uint32_t mycopy;
 
-    if (fread(&mycopy, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
+    if (std::fread(&mycopy, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
     {
         return FALSE;
     }
@@ -707,7 +707,7 @@ static bool_t xdrstdio_putuint32(XDR* xdrs, xdr_uint32_t* ip)
     xdr_uint32_t mycopy = xdr_htonl(*ip);
 
     ip = &mycopy;
-    if (fwrite(ip, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
+    if (std::fwrite(ip, 4, 1, reinterpret_cast<FILE*>(xdrs->x_private)) != 1)
     {
         return FALSE;
     }

@@ -943,7 +943,7 @@ int gmx_trjcat(int argc, char* argv[])
                                     frame_out,
                                     output_env_conv_time(oenv, frout.time),
                                     timeUnit.c_str());
-                            fflush(stderr);
+                            std::fflush(stderr);
                         }
                     }
                 }

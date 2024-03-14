@@ -288,7 +288,7 @@ int gmx_vanhove(int argc, char* argv[])
         if (f % 100 == 0)
         {
             fprintf(stderr, "\rProcessing frame %d", f);
-            fflush(stderr);
+            std::fflush(stderr);
         }
         if (pbcType != PbcType::No)
         {

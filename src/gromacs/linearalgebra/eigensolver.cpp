@@ -281,7 +281,7 @@ void sparse_parallel_eigensolver(gmx_sparsematrix_t* A, int neig, real* eigenval
         }
 
         fprintf(stderr, "\rIteration %4d: %3d out of %3d Ritz values converged.", iter++, iparam[4], neig);
-        fflush(stderr);
+        std::fflush(stderr);
     } while (info == 0 && (ido == -1 || ido == 1));
 
     fprintf(stderr, "\n");
@@ -441,7 +441,7 @@ void sparse_eigensolver(gmx_sparsematrix_t* A, int neig, real* eigenvalues, real
         }
 
         fprintf(stderr, "\rIteration %4d: %3d out of %3d Ritz values converged.", iter++, iparam[4], neig);
-        fflush(stderr);
+        std::fflush(stderr);
     } while (info == 0 && (ido == -1 || ido == 1));
 
     fprintf(stderr, "\n");
