@@ -272,20 +272,21 @@ int gmx_spatial(int argc, char* argv[])
             int z = static_cast<int>(std::floor((fr.x[index[i]][ZZ] - MINBIN[ZZ]) / rBINWIDTH));
             if (x < 0 || x >= nbin[XX] || y < 0 || y >= nbin[YY] || z < 0 || z >= nbin[ZZ])
             {
-                printf("There was an item outside of the allocated memory. Increase the value "
-                       "given with the -nab option.\n");
-                printf("Memory was allocated for [%f,%f,%f]\tto\t[%f,%f,%f]\n",
-                       MINBIN[XX],
-                       MINBIN[YY],
-                       MINBIN[ZZ],
-                       MAXBIN[XX],
-                       MAXBIN[YY],
-                       MAXBIN[ZZ]);
-                printf("Memory was required for [%f,%f,%f]\n",
-                       fr.x[index[i]][XX],
-                       fr.x[index[i]][YY],
-                       fr.x[index[i]][ZZ]);
-                std::exit(1);
+                fprintf(stderr, "There was an item outside of the allocated memory.\n");
+                fprintf(stderr,
+                        "Memory was allocated for [%f,%f,%f]\tto\t[%f,%f,%f]\n",
+                        MINBIN[XX],
+                        MINBIN[YY],
+                        MINBIN[ZZ],
+                        MAXBIN[XX],
+                        MAXBIN[YY],
+                        MAXBIN[ZZ]);
+                fprintf(stderr,
+                        "Memory was required for [%f,%f,%f]\n",
+                        fr.x[index[i]][XX],
+                        fr.x[index[i]][YY],
+                        fr.x[index[i]][ZZ]);
+                GMX_RELEASE_ASSERT(false, "Increase the value given with the -nab option.");
             }
 
             bin[x][y][z]++;

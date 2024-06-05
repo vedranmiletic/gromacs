@@ -45,6 +45,7 @@
 #include "gromacs/fileio/xdrf.h"
 #include "gromacs/utility/enumerationhelpers.h"
 #include "gromacs/utility/futil.h"
+#include "gromacs/utility/gmxassert.h"
 
 /* This is just for clarity - it can never be anything but 4! */
 #define XDR_INT_SIZE 4
@@ -246,15 +247,8 @@ static void sendints(struct DataBuffer* buffer,
 
     for (i = 1; i < num_of_ints; i++)
     {
-        if (nums[i] >= sizes[i])
-        {
-            fprintf(stderr,
-                    "major breakdown in sendints num %u doesn't "
-                    "match size %u\n",
-                    nums[i],
-                    sizes[i]);
-            std::exit(1);
-        }
+        GMX_RELEASE_ASSERT(nums[i] < sizes[i],
+                           "Major breakdown in sendints, num doesn't match size.");
         /* use one step multiply */
         tmp = nums[i];
         for (bytecnt = 0; bytecnt < num_of_bytes; bytecnt++)
@@ -444,25 +438,14 @@ int xdr3dfcoord(XDR* xdrs, float* fp, int* size, float* precision, int magic_num
     bitsizeint[0] = bitsizeint[1] = bitsizeint[2] = 0;
     prevcoord[0] = prevcoord[1] = prevcoord[2] = 0;
 
-    if (magic_number != XTC_MAGIC && magic_number != XTC_NEW_MAGIC)
-    {
-        fprintf(stderr,
-                "Invalid magic number (%d) requested (should be %d or %d).\n",
-                magic_number,
-                XTC_MAGIC,
-                XTC_NEW_MAGIC);
-        std::exit(1);
-    }
+    GMX_RELEASE_ASSERT(
+            magic_number == XTC_MAGIC || magic_number == XTC_NEW_MAGIC,
+            "Invalid magic number requested (should be XTC_MAGIC (1995) or XTC_NEW_MAGIC (2003)).");
 
-    if (*size > XTC_1995_MAX_NATOMS && magic_number != XTC_NEW_MAGIC)
-    {
-        fprintf(stderr,
-                "Inconsistent input or file format. Cannot read/write a system\n"
-                "with %d atoms in a frame without using the new XTC magic number (%d).\n",
-                *size,
-                XTC_NEW_MAGIC);
-        std::exit(1);
-    }
+    GMX_RELEASE_ASSERT(
+            *size <= XTC_1995_MAX_NATOMS || magic_number == XTC_NEW_MAGIC,
+            "Inconsistent input or file format. Cannot read/write a system with a number of atoms "
+            "this large in a frame without using the new XTC magic number (2003).");
 
     struct DataBuffer buffer;
 
@@ -511,11 +494,7 @@ int xdr3dfcoord(XDR* xdrs, float* fp, int* size, float* precision, int magic_num
             bufsize        = size3 * 1.2;
             ip             = reinterpret_cast<int*>(std::malloc(size3 * sizeof(*ip)));
             buffer.data    = reinterpret_cast<unsigned char*>(std::malloc(bufsize * XDR_INT_SIZE));
-            if (ip == nullptr || buffer.data == nullptr)
-            {
-                fprintf(stderr, "malloc failed\n");
-                std::exit(1);
-            }
+            GMX_RELEASE_ASSERT(ip != nullptr && buffer.data != nullptr, "Memory allocation failed.");
         }
 
         buffer.index    = 0;
@@ -894,11 +873,7 @@ int xdr3dfcoord(XDR* xdrs, float* fp, int* size, float* precision, int magic_num
             bufsize        = size3 * 1.2;
             ip             = reinterpret_cast<int*>(std::malloc(size3 * sizeof(*ip)));
             buffer.data    = reinterpret_cast<unsigned char*>(std::malloc(bufsize * XDR_INT_SIZE));
-            if (ip == nullptr || buffer.data == nullptr)
-            {
-                fprintf(stderr, "malloc failed\n");
-                std::exit(1);
-            }
+            GMX_RELEASE_ASSERT(ip != nullptr && buffer.data != nullptr, "Memory allocation failed.");
         }
 
         buffer.index    = 0;

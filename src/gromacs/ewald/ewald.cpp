@@ -66,6 +66,7 @@
 #include "gromacs/mdtypes/md_enums.h"
 #include "gromacs/utility/arrayref.h"
 #include "gromacs/utility/fatalerror.h"
+#include "gromacs/utility/gmxassert.h"
 #include "gromacs/utility/smalloc.h"
 
 using cvec = std::array<t_complex, DIM>;
@@ -98,11 +99,7 @@ static void tabulateStructureFactors(int natom, gmx::ArrayRef<const gmx::RVec> x
 {
     int i, j, m;
 
-    if (kmax < 1)
-    {
-        printf("Go away! kmax = %d\n", kmax);
-        std::exit(1);
-    }
+    GMX_RELEASE_ASSERT(kmax >= 1, "Invalid value for kmax, should be at least 1.");
 
     for (i = 0; (i < natom); i++)
     {
