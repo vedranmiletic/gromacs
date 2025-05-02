@@ -1,0 +1,67 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+parameters:
+  timeout: 60
+  partitions:
+    - chamomile
+    - zinnia
+
+steps:
+  build: |
+    cmake -S . -B build -D CMAKE_BUILD_TYPE=RelWithDebInfo -D CMAKE_C_COMPILER=clang-15 -D CMAKE_CXX_COMPILER=clang++-15 -D GMX_BUILD_OWN_FFTW=ON -D GMX_GPU=CUDA
+    cmake --build build --parallel 20
+
+    curl -O https://apollon.miletic.net/benchMEM.zip
+    unzip benchMEM.zip
+
+    curl -O https://apollon.miletic.net/benchRIB.zip
+    unzip benchRIB.zip
+
+    curl -O https://apollon.miletic.net/benchPEP.zip
+    unzip benchPEP.zip
+
+    curl -O https://apollon.miletic.net/benchPEP-h.zip
+    unzip benchPEP-h.zip
+
+  run:
+    benchMEM:
+      command: ./build/bin/gmx mdrun -s -maxh 0.2 -resethway -noconfout -cpt -1 -s benchMEM.tpr -nsteps -1  
+      measurements: 3
+      profiler: nsys
+      kernels: true
+      metrics:
+        - runtime
+        - flops_dp
+        - flops_sp
+    benchRIB:
+      command: ./build/bin/gmx mdrun -s -maxh 0.2 -resethway -noconfout -cpt -1 -s benchRIB.tpr -nsteps -1  
+      measurements: 3
+      profiler: nsys
+      kernels: true
+      metrics:
+        - runtime
+        - flops_dp
+        - flops_sp
+    benchPEP:
+      command: ./build/bin/gmx mdrun -s -maxh 0.2 -resethway -noconfout -cpt -1 -s benchPEP.tpr -nsteps -1  
+      measurements: 3
+      profiler: nsys
+      kernels: true
+      metrics:
+        - runtime
+        - flops_dp
+        - flops_sp
+    benchPEP-h:
+      command: ./build/bin/gmx mdrun -s -maxh 0.2 -resethway -noconfout -cpt -1 -s benchPEP-h.tpr -nsteps -1  
+      measurements: 3
+      profiler: nsys
+      kernels: true
+      metrics:
+        - runtime
+        - flops_dp
+        - flops_sp
