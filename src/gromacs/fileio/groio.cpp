@@ -49,7 +49,6 @@
 #include "gromacs/topology/symtab.h"
 #include "gromacs/topology/topology.h"
 #include "gromacs/trajectory/trajectoryframe.h"
-#include "gromacs/utility/basedefinitions.h"
 #include "gromacs/utility/coolstuff.h"
 #include "gromacs/utility/cstringutil.h"
 #include "gromacs/utility/fatalerror.h"
@@ -387,7 +386,7 @@ gmx_bool gro_next_x_or_v(FILE* status, t_trxframe* fr)
     sfree(atoms.resinfo);
     sfree(atoms.atomname);
     done_symtab(&symtab);
-    if (!fr->bV)
+    if (std::feof(status))
     {
         return FALSE;
     }
